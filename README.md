@@ -1,6 +1,6 @@
 # contribution
 
-## Mozilla:
+## Mozilla
 
 ### Release Engineering
 - [gzip to lzma - 1621066](https://bugzilla.mozilla.org/show_bug.cgi?id=1621066) :rocket:
