@@ -1,0 +1,38 @@
+From 90c41a28eae1e4b21af372f24dad2585a45893f8 Mon Sep 17 00:00:00 2001
+From: Max Pham <max.pham@mail.utoronto.ca>
+Date: Thu, 12 Mar 2020 21:06:01 -0400
+Subject: [PATCH] Bug 1621066 - pushflatpakscript: change to xz compression
+
+---
+ pushflatpakscript/src/pushflatpakscript/artifacts.py | 4 ++--
+ pushflatpakscript/src/pushflatpakscript/flathub.py   | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/pushflatpakscript/src/pushflatpakscript/artifacts.py b/pushflatpakscript/src/pushflatpakscript/artifacts.py
+index a4cde9ed..68dc1c7a 100644
+--- a/pushflatpakscript/src/pushflatpakscript/artifacts.py
++++ b/pushflatpakscript/src/pushflatpakscript/artifacts.py
+@@ -10,8 +10,8 @@ def get_flatpak_file_path(context):
+ 
+     return get_single_item_from_sequence(
+         all_artifacts,
+-        condition=lambda artifact: artifact.endswith(".flatpak.tar.gz"),
++        condition=lambda artifact: artifact.endswith(".flatpak.tar.xz"),
+         ErrorClass=TaskVerificationError,
+-        no_item_error_message="No upstream artifact is a tar.gz",
++        no_item_error_message="No upstream artifact is a tar.xz",
+         too_many_item_error_message="Too many flatpaks detected",
+     )
+diff --git a/pushflatpakscript/src/pushflatpakscript/flathub.py b/pushflatpakscript/src/pushflatpakscript/flathub.py
+index c346f5c2..4a80e97d 100644
+--- a/pushflatpakscript/src/pushflatpakscript/flathub.py
++++ b/pushflatpakscript/src/pushflatpakscript/flathub.py
+@@ -104,7 +104,7 @@ def check_and_extract_tar_archive(context, tar_file_path):
+             flatpak_deflated_dir = topdir
+         tar.extractall(path=flatpak_tar_basedir)
+ 
+-    # we remove the `tar.gz` as it's not longer needed
++    # we remove the `tar.xz` as it's not longer needed
+     os.remove(tar_file_path)
+     log.debug(f"Deleted archive from {tar_file_path}")
+ 
